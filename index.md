@@ -60,8 +60,8 @@ title: Home
   <div class="card third">
     <h3>Current interests</h3>
     <p>
-      Oncology trials, survival analysis, causal inference,
-      trial design, and evidence generation.
+      Oncology clinical trial design, survival analysis, causal inference,
+      HEOR/RWE, and statistical programming.
     </p>
   </div>
 
