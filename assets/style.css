@@ -1,184 +1,314 @@
 body{ background:#ff00ff !important; }
 
+/* =========================
+   BROWN-INSPIRED THEME
+   - Auto light/dark via data-theme
+   - Micro animations
+   ========================= */
+
+/* Base tokens (used by both themes) */
 :root{
-  --bg: #020617;
-  --surface: #0f172a;
-  --surface2: #111827;
-  --text: #ffffff;
-  --muted: #cbd5f5;
-  --border: #1e293b;
-
-  --accent: #6366f1;
-  --accent2: #22d3ee;
-
   --max: 980px;
   --radius: 16px;
-  --shadow: 0 20px 60px rgba(0,0,0,.45);
+  --shadow: 0 20px 60px rgba(0,0,0,.14);
+
+  /* Brown-inspired accents:
+     - Brown "seal" feel: deep cocoa
+     - Warm gold highlight
+     - Subtle crimson (optional) */
+  --brown: #4b2e2a;
+  --gold:  #c9a227;
+  --cream: #f5efe6;
+  --crimson: #a51c30;
+
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --dur: 220ms;
+}
+
+/* LIGHT (default) */
+:root,
+:root[data-theme="light"]{
+  --bg: #fbfaf7;
+  --bg2: #f3efe8;
+  --surface: #ffffff;
+  --surface2: #f6f2ea;
+  --text: #1f2937;
+  --muted: #5b6472;
+  --border: #e7dfd5;
+
+  --accent: var(--brown);
+  --accent2: var(--gold);
+  --link: #1f4aa8;
+}
+
+/* DARK */
+:root[data-theme="dark"]{
+  --bg: #0f0c0b;
+  --bg2: #151110;
+  --surface: #1a1413;
+  --surface2: #221a18;
+  --text: #ffffff;
+  --muted: rgba(255,255,255,.78);
+  --border: rgba(255,255,255,.12);
+
+  --accent: #e7d6c2;     /* warm cream highlight */
+  --accent2: var(--gold);
+  --link: #9cc5ff;
+
+  --shadow: 0 30px 80px rgba(0,0,0,.45);
 }
 
 *{ box-sizing:border-box; }
 html,body{ margin:0; padding:0; }
-
 body{
-  background: var(--bg);
   color: var(--text);
   font: 16px/1.7 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background:
+    radial-gradient(900px 520px at 18% 8%, color-mix(in oklab, var(--accent2) 18%, transparent), transparent 60%),
+    radial-gradient(800px 480px at 84% 18%, color-mix(in oklab, var(--brown) 18%, transparent), transparent 65%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease);
 }
 
-/* Layout */
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; }
+}
+
 .container{
   max-width: var(--max);
   margin: 0 auto;
-  padding: 32px 20px 60px;
+  padding: 28px 18px 64px;
 }
 
-/* Header */
+/* Header / nav */
 .site-header{
-  background: rgba(2,6,23,.85);
-  backdrop-filter: blur(8px);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(10px);
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
   border-bottom: 1px solid var(--border);
 }
 
 .nav{
   max-width: var(--max);
   margin: 0 auto;
-  padding: 14px 20px;
+  padding: 12px 18px;
   display:flex;
+  gap: 12px;
   align-items:center;
-  gap:14px;
   flex-wrap: wrap;
 }
 
 .nav__brand{
+  font-weight: 900;
+  letter-spacing: .2px;
+  text-decoration: none;
   color: var(--text);
-  font-weight:800;
-  text-decoration:none;
+}
+
+.nav__links, .nav__icons{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items:center;
 }
 
 .nav a{
-  color: var(--muted);
   text-decoration:none;
+  color: var(--muted);
   padding: 8px 10px;
-  border-radius: 10px;
+  border-radius: 12px;
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
 .nav a:hover{
-  color: white;
-  background: var(--surface);
+  color: var(--text);
+  background: color-mix(in oklab, var(--surface) 60%, transparent);
+  transform: translateY(-1px);
 }
+
+/* Theme toggle button in nav */
+.theme-toggle{
+  margin-left: auto;
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 60%, transparent);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 800;
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.theme-toggle:hover{
+  transform: translateY(-1px);
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+}
+.theme-toggle:active{
+  transform: translateY(0px) scale(.98);
+}
+
+/* Links */
+a{ color: var(--link); }
+a:hover{ opacity: .92; }
 
 /* Hero */
 .hero{
-  margin-top: 26px;
-  padding: 28px;
-  border-radius: var(--radius);
-  background: linear-gradient(180deg, var(--surface), var(--surface2));
+  margin-top: 22px;
+  padding: 26px;
+  border-radius: calc(var(--radius) + 6px);
   border: 1px solid var(--border);
+  background: linear-gradient(180deg,
+    color-mix(in oklab, var(--surface) 88%, transparent),
+    color-mix(in oklab, var(--surface2) 88%, transparent)
+  );
   box-shadow: var(--shadow);
+  animation: riseIn 520ms var(--ease) both;
+}
+
+@keyframes riseIn{
+  from{ opacity: 0; transform: translateY(10px); }
+  to{ opacity: 1; transform: translateY(0); }
 }
 
 .hero__top{
   display:flex;
-  gap:18px;
-  align-items:center;
+  gap: 18px;
+  align-items: center;
   flex-wrap: wrap;
 }
 
 .avatar{
-  width: 84px;
-  height: 84px;
-  border-radius: 20px;
-  overflow:hidden;
+  width: 86px;
+  height: 86px;
+  border-radius: 22px;
   border: 1px solid var(--border);
+  overflow: hidden;
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
 }
-
 .avatar img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
 }
 
 h1{
-  margin:0;
+  margin: 0;
   font-size: 44px;
-  letter-spacing:-0.6px;
+  line-height: 1.12;
+  letter-spacing: -0.6px;
 }
 
 .subtitle{
-  margin-top:6px;
+  margin: 6px 0 0;
   color: var(--muted);
-  font-weight:600;
+  font-weight: 650;
 }
 
 /* Buttons */
 .hero__cta{
-  margin-top:18px;
+  margin-top: 16px;
   display:flex;
-  gap:10px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .btn{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
   padding: 10px 14px;
-  border-radius: 12px;
-  font-weight:700;
+  border-radius: 14px;
   text-decoration:none;
+  font-weight: 800;
   border: 1px solid var(--border);
-  background: var(--surface);
-  color: white;
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+  color: var(--text);
+  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease);
 }
 
 .btn:hover{
-  background: var(--surface2);
+  transform: translateY(-1px);
+  background: color-mix(in oklab, var(--surface) 88%, transparent);
+  border-color: color-mix(in oklab, var(--accent2) 45%, var(--border));
+}
+
+.btn:active{
+  transform: translateY(0px) scale(.99);
 }
 
 .btn--primary{
   border-color: transparent;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
-  color: #020617;
+  color: #0b0a0a;
 }
 
-/* Cards */
+:root[data-theme="dark"] .btn--primary{
+  color: #0b0a0a;
+}
+
+/* Grid + cards */
 .grid{
   display:grid;
-  grid-template-columns: repeat(12,1fr);
-  gap:16px;
-  margin-top: 28px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+  margin-top: 18px;
 }
 
 .card{
   grid-column: span 12;
-  padding: 18px;
+  padding: 16px 16px;
   border-radius: var(--radius);
-  background: var(--surface);
   border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--surface) 78%, transparent);
+  box-shadow: 0 1px 0 rgba(0,0,0,.02);
+  animation: fadeUp 520ms var(--ease) both;
 }
 
-@media(min-width:900px){
+@keyframes fadeUp{
+  from{ opacity: 0; transform: translateY(8px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 900px){
   .card.half{ grid-column: span 6; }
   .card.third{ grid-column: span 4; }
 }
 
 .card h3{
-  margin:0 0 6px;
+  margin: 0 0 6px;
+  font-size: 16px;
 }
 
 .card p{
-  margin:0;
+  margin: 6px 0 0;
   color: var(--muted);
+}
+
+/* Images */
+img.responsive{
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
 }
 
 /* Footer */
 .footer{
-  margin-top: 60px;
   border-top: 1px solid var(--border);
+  background: color-mix(in oklab, var(--bg) 82%, transparent);
 }
-
 .footer > div{
   max-width: var(--max);
-  margin:0 auto;
-  padding: 20px;
+  margin: 0 auto;
+  padding: 18px;
   color: var(--muted);
-  font-size:14px;
+  font-size: 14px;
 }
+
 
