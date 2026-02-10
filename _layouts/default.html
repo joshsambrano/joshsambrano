@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{{ page.title }} · {{ site.title }}</title>
+  <link rel="stylesheet" href="/assets/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a class="nav__brand" href="/">Home</a>
+      <div class="nav__links">
+        <a href="/resume">Resume</a>
+        <a href="/sample_work">Sample Work</a>
+        <a href="/projects_and_research">Projects & Research</a>
+        <a href="/manuscripts">Manuscripts</a>
+        <a href="/photo_gallery">Photo Gallery</a>
+      </div>
+      <div class="nav__icons">
+        <a href="https://github.com/YOUR_GITHUB" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href="https://www.researchgate.net/profile/YOUR_RG" target="_blank" rel="noreferrer">ResearchGate</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    {{ content }}
+  </main>
+
+  <footer class="footer">
+    <div>Copyright © {{ "now" | date: "%Y" }}, {{ site.title }}</div>
+  </footer>
+</body>
+</html>
