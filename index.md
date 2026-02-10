@@ -3,6 +3,26 @@ layout: default
 title: Home
 ---
 
+<div class="hero">
+  <div class="hero__top">
+    <div class="avatar">
+      <img src="/assets/headshot.jpg" alt="Josh headshot">
+    </div>
+    <div>
+      <h1>Josh Sambrano</h1>
+      <p class="subtitle">Biostatistics M.S. @ Brown · Sr. Clinical Trial Associate @ Revolution Medicines</p>
+    </div>
+  </div>
+
+  <div class="hero__cta">
+    <a class="btn btn--primary" href="/resume">View Resume</a>
+    <a class="btn" href="/projects_and_research">Projects</a>
+    <a class="btn" href="mailto:YOUR_EMAIL">Email</a>
+  </div>
+</div>
+
+
+
 # Josh Sambrano
 #### Biostatistics Master's Student @ Brown | Clinical Researcher | Sr. Clinical Trial Associate @ Revolution Medicines
 
