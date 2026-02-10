@@ -1,9 +1,11 @@
 /* ====== Design tokens ====== */
 :root{
-  --bg:#0b1220;
-  --accent:#7c5cff;
-  --accent2:#22d3ee;
+  --bg:#f9fafb;
+  --text:#0f172a;
+  --accent:#2563eb;
+  --accent2:#22c55e;
 }
+
 
 *{ box-sizing:border-box; }
 html,body{ margin:0; padding:0; }
