@@ -3,6 +3,8 @@ layout: default
 title: Home
 ---
 
+<hr>
+
 <div class="hero">
   <div class="hero__top">
     <div class="avatar">
